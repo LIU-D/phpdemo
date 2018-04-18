@@ -43,13 +43,19 @@
     //每页条数
     $page_size = 3;
     //页
+
     $page = isset($_GET['page']) ? $_GET['page'] : 3;
-    $next_page = $page + 1 ;
+    //最大页码数
+    $res_count = mysql_query("select count(*) from `emp_info`");
+    $count = mysql_fetch_row($res_count);
+    $page_max = ceil($count[0] / $page_size);
+    
+    $next_page = $page + 1;
     $last_page = $page - 1 ;
     $page_html = '  <a href="showList.php?page=1">首页</a>
-                    <a href="showList.php?page=' .$last_page . '">上一页</a>
-                    <a href="showList.php?page=' .$next_page . '">下一页</a>
-                    <a href="showList.php">尾页</a>       ';
+                    <a href="showList.php?page=' .($last_page < 1 ? 1 : $last_page) . '">上一页</a>
+                    <a href="showList.php?page=' .($next_page > $page_max ? $page_max: $next_page) . '">下一页</a>
+                    <a href="showList.php?page=' . $page_max . '">尾页</a>       ';
 
     $limit = ($page - 1) * $page_size;
     $sql_limit = "select * from `emp_info` limit $limit,$page_size ";
