@@ -19,6 +19,7 @@
     //判断
     $order = isset($_GET['order']) ? $_GET['order'] : '';
     $sort = isset($_GET['sort']) ? $_GET['sort'] : '';
+    $select_info = isset($_GET['select_info']) ? $_GET['select_info'] : '';
 
     if(in_array($order,$fields)) {
         if($sort == 'desc'){
@@ -52,14 +53,15 @@
     
     $next_page = $page + 1;
     $last_page = $page - 1 ;
-    $page_html = '  <a href="showList.php?page=1">首页</a>
-                    <a href="showList.php?page=' .($last_page < 1 ? 1 : $last_page) . '">上一页</a>
-                    <a href="showList.php?page=' .($next_page > $page_max ? $page_max: $next_page) . '">下一页</a>
-                    <a href="showList.php?page=' . $page_max . '">尾页</a>       ';
+    // $page_html = '  <a href="showList.php?page=1">首页</a>
+    //                 <a href="showList.php?page=' .($last_page < 1 ? 1 : $last_page) . '">上一页</a>
+    //                 <a href="showList.php?page=' .($next_page > $page_max ? $page_max: $next_page) . '">下一页</a>
+    //                 <a href="showList.php?page=' . $page_max . '">尾页</a>       ';
 
     $limit = ($page - 1) * $page_size;
+    require "page_function.php";
     $sql_limit = "select * from `emp_info` limit $limit,$page_size ";
-
+    $page_html = makePageHtml($page,$page_max);
 
 
     // 数据库操作
