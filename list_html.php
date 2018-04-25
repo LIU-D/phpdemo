@@ -37,7 +37,7 @@
 				document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
 			}
 		}
-		xmlhttp.open("GET","showList.php?select_info="+str,true);
+		xmlhttp.open("GET","ajax.php?select_info="+str,true);
 		xmlhttp.send();
 	}
 	</script>
@@ -51,7 +51,7 @@
 		</form>
 		<table border="1">
 			<tr>
-				<th width="5%">ID</th>
+				<th width="5%">ID<	/th>
 				<th>姓名</th>
 				<th><a href="showList.php?order=e_dept&sort=<?php echo $sort=="desc"?"asc":"desc";?>">所属部门</a></th>
 				<th>出生日期</th>
@@ -77,6 +77,9 @@
 
 	<div>
 		<?php echo $page_html; ?>
+	</div>
+
+	<div id="txtHint">
 	</div>
 </body>
 </html>
