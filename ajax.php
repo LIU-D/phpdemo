@@ -22,6 +22,7 @@ $sql="SELECT * FROM emp_info $where ";
 $result = mysqli_query($con,$sql);
  
 echo "<table border='1'>
+<div class='box'>
 <tr>
 <th>ID</th>
 <th>NAME</th>
@@ -39,6 +40,7 @@ while($row = mysqli_fetch_array($result))
     echo "<td>" . $row['date_of_birth'] . "</td>";
     echo "<td>" . $row['date_of_entry'] . "</td>";
     echo "</tr>";
+    echo "</div>";
 }
 echo "</table>";
  
