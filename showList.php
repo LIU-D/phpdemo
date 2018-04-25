@@ -34,8 +34,7 @@
     //输入数据进行sql转义
     $keyword = mysql_real_escape_string($keyword);
     //where 子句  like %任意数量字符
-    //$where = "where e_name like '%$keyword%'";
-    $where = "where e_name like '%$select_info%'";
+    $where = "where e_name like '%$keyword%'";
     //最大页码数
     $res_count = mysql_query("select count(*) from `emp_info`");
     $count = mysql_fetch_row($res_count);
@@ -51,9 +50,9 @@
     $sql_limit = "select * from `emp_info` limit $limit,$page_size ";
     $page_html = makePageHtml($page,$page_max);
     // 数据库操作
-    $sql = "select * from `emp_info` $where  $sql_order";
+    //$sql = "select * from `emp_info` $where  $sql_order";
     //结果集
-    $result=mysql_query($sql,$link);
+    $result=mysql_query($sql_limit,$link);
     //员工数组
     //$emp_info = array();
     while($row=mysql_fetch_array($result,MYSQL_ASSOC)){
