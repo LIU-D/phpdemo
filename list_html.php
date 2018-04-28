@@ -43,15 +43,22 @@
 	</script>
 </head>
 <body>
+
+	<div>
+		<a href="add_html.php">add</a>
+	</div>
+
 	<div class="box">
 		<div class="title">员工信息列表</div>
 		<form action='showList.php' method='post'>
 			<input type="text" name="keyword" onkeyup="showinfo(this.value)" />
 			<input type="submit" value="input" />
 		</form>
+
+		
 		<table border="1">
 			<tr>
-				<th width="5%">ID<	/th>
+				<th width="5%">ID</th>
 				<th>姓名</th>
 				<th><a href="showList.php?order=e_dept&sort=<?php echo $sort=="desc"?"asc":"desc";?>">所属部门</a></th>
 				<th>出生日期</th>

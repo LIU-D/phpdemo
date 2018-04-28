@@ -3,14 +3,14 @@
  * 初始化数据库连接
  */
 function dbInit(){
-	$link = mysql_connect('localhost','root','');
+	$link = mysql_connect('localhost','root','741258o');
 	//判断数据库连接是否成功，如果不成功则显示错误信息并终止脚本继续执行
 	if(!$link){
 		die('连接数据库失败！'.mysql_error());
 	}
 	//设置字符集，选择数据库
 	mysql_query('set names utf8');
-	mysql_query('use test');
+	mysql_query('use php');
 }
 
 /**
