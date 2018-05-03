@@ -6,9 +6,8 @@ require "public_function.php";
 dbInit();
 //提取ID
 $e_id = isset($_GET['e_id']) ? $_GET['e_id'] : "";
-
 //拼接sql
-$ql = "DELETE FROM `php`.`emp_info` WHERE `emp_info`.`e_id`= $e_id";   
+$sql = "DELETE FROM `php`.`emp_info` WHERE `emp_info`.`e_id`= $e_id";   
 //执行sql delete相应数据
 $res = query($sql);
 header('Location:showList.php');

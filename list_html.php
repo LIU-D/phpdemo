@@ -74,7 +74,7 @@
 				<td><?php echo $value['date_of_birth'];?></td>
 				<td><?php echo $value['date_of_entry'];?></td>
 				<td><img src="images/edt.gif"><a href="empUpdate.php?e_id=<?php echo $value['e_id'];?>">修改</a>
-					<img src="images/del.gif"><a href="empDelete.php?e_id=<?php echo $value['e_id'];?>">删除</a>
+					<img src="images/del.gif"><a href="empDelete.php?e_id=<?php echo $value['e_id'];?> ">删除</a>
 				</td>
 			</tr>
 			<?php	} ?>
