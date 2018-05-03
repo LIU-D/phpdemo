@@ -19,15 +19,14 @@ foreach($fields as $key => $val){
 $fields = implode(',' , $fields);
 $values = implode(',' , $values);
 //`e_name`, `e_dept`, `date_of_birth`, `date_of_entry`
-$sql = "INSERT INTO `php`.`emp_info` ($fields) VALUES ($values)";
+$sql = "INSERT INTO `php`.`emp_info` ($fields) VALUES ($values)";.
 
+//跳转到视图页面
 if($res = query($sql)){
     header('Location:showList.php');
     die;
 }else{
     die('添加员工失败！');
 };
-
-//跳转到视图页面
 
 ?>
