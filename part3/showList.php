@@ -50,7 +50,7 @@
     $sql_limit = "select * from `emp_info` limit $limit,$page_size ";
     $page_html = makePageHtml($page,$page_max);
     // 数据库操作
-    //$sql = "select * from `emp_info` $where  $sql_order";
+    //  $sql = "select * from `emp_info` $where  $sql_order";
     //结果集
     $result=mysql_query($sql_limit,$link);
     //员工数组
