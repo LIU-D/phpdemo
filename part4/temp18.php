@@ -36,8 +36,9 @@ foreach($validate as $k => $v){
 }
 //如果$error数组为空，说明没有错误
 if(empty($error)){
-
+    echo "验证成功！";
 }else{
+    define("APP","temp18");
     require 'register_error_html.php';
 }
 //加载HTML模板文件
