@@ -1,0 +1,6 @@
+案例20  用户登录
+准备文件：login_html.php  register_html.php   user_html.php
+
+1、首先编写user.php入口文件
+2、改写案例16写过的注册程序（register.php）
+3、编写login.php登录文件
