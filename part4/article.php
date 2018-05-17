@@ -75,27 +75,4 @@ foreach($cookie_arr as $v){
 //加载HTML模板文件
 define('APP','article');
 require 'article_html.php';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ?>
