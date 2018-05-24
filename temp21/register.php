@@ -7,6 +7,7 @@ $error = array();
 //var_dump($_POST);
 //封装函数：载入HTML模板文件
 function showRegPage(){
+    //从全局变量读取错误信息
     $error = $GLOBALS['error'];
     define('APP','register');
     require 'register_html.php';
@@ -16,6 +17,7 @@ function showRegPage(){
 if(empty($_POST)){
     showRegPage();
 }
+
 //初始化数据库,引入公共函数
 require "public_function.php";
 //引入表单验证函数库
@@ -31,16 +33,6 @@ $data = array(
 	'password' => "'$password'",
 	'email' => "'$email'",
 );
-
-
-//判断用户名是否重名
-$sql_name = "SELECT `id` FROM `user` WHERE `username` = '$username'";
-if(fetchRow($sql_name)){
-    die('用户名已存在！请更改。');
-}
-//密码加密
-$password = md5($password);
-/***********************************************************************************************************************/
 
 //为每个字段定义不同的验证函数
 $validate = array(
@@ -64,24 +56,49 @@ foreach($validate as $k => $v){
         $error[] = $res;
     }
 }
-//拼接insert的SQL语句
-if(empty($error)){
-    $sql = "INSERT INTO `php`.`user` (`username`,`password`,`email`)
-        VALUES ('$username','$password','$email')";
-    //执行
-    //跳转到视图页面
-    if($res = query($sql)){
-        echo '注册成功！';
-        die;
-    }else{
-        die('注册失败！');
-    };    
-}else{
-    define('APP','php');
-    require 'register_error_html.php';
+
+//判断用户名是否重名
+$sql_name = "SELECT `id` FROM `user` WHERE `username` = '$username'";
+if(fetchRow($sql_name)){
+    $error[] = '用户名已存在！请更改。';
+    showRegPage();
 }
+//生成密码盐
+$salt = md5(uniqid(microtime()));
+//密码安全提升
+$password = md5($salt.md5($password));
 
+//拼接insert的SQL语句
+$sql = "INSERT INTO `php`.`user` (`username`,`password`,`salt`,`email`)
+        VALUES ('$username','$password','$salt','$email')";  
+$sql_info = "INSERT INTO `php`.`userinfo` (`nickname`,`email`)
+        VALUES ('$username','$email')";
+    
+//执行
+//跳转到视图页面
+if($res = query($sql)){
+    query($sql_info);
 
+    //用户注册成功自动登录
+    session_start();
+    //获取ID
+    $id= mysql_insert_id();
+    $_SESSION['userinfo'] = array(
+        'id' => $id,
+        'username' => $username
+    );
+    echo '<script>alert("注册成功！");window.location.href="user.php";</script>';
+    die;
+}else{
+    $error[] = '注册失败。';
+    showRegPage();
+}  
+// }else{
+//     define('APP','php');
+//     require 'register_error_html.php';
+// }
+
+define('APP','php');
 
 
 ?>

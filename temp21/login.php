@@ -1,9 +1,11 @@
 <?php
 //设定字符集
 header('content-type:text/html;charset=utf-8');
+//初始化数据库,引入公共函数
+require "public_function.php";
 dbInit();
 //保存错误信息
-$erroe = arry();
+$erroe = array();
 //有表单提交时
 if(!empty($_POST)){
     //接受用户登录表单
@@ -35,12 +37,12 @@ if(!empty($_POST)){
                     setcookie('password',$password_cookie,$cookie_expire);
                 }
                 //登陆成功，保存用户会话
-                seesion_start();
-                $_SESSION['suerinfo'] = array(
+                session_start();
+                $_SESSION['userinfo'] = array(
                     //用户id存至session
-                    'id' => $row['id'];
+                    'id' => $row['id'],
                     //用户名存至session
-                    'username' => $username;
+                    'username' => $username
                 );
                 //登陆成功后跳转至会员中心
                 header('Location:user.php');
@@ -66,12 +68,12 @@ if(isset($_COOKIE['username']) && isset($_COOKIE['password'])){
             //对比cookie密码
             if($password == $password_cookie){
                 //登陆成功保存用户会话
-                seesion_start();
-                $_SESSION['suerinfo'] = array(
+                session_start();
+                $_SESSION['userinfo'] = array(
                     //用户id存至session
-                    'id' => $row['id'];
+                    'id' => $row['id'],
                     //用户名存至session
-                    'username' => $username;
+                    'username' => $username
                 );
                 //登陆成功后跳转至会员中心
                 header('Location:user.php');
