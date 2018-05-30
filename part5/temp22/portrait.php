@@ -27,12 +27,42 @@ if(!empty($_FILES['pic'])){
         echo '图像不符合要求，允许的类型为:jpg';
         return false;
     }
-    $new_file = $info['id'].'.jpg';
-    $filename = './img/'.$new_file;
-    if(!move_uploaded_file($pic_info['tmp_name'],$filename)){
-        echo '头像上传失败！';
-        return false;
+    //获取图像信息数组
+    $img_info = getimagesize($pic_info['tmp_name']);
+    //保存数据
+    list($w,$h) = getimagesize($pic_info['tmp_name']);
+    //设置缩略图的最大宽高
+    $max_width = $max_height = 90;
+    //将最大边设置为缩略图的边长
+    if($w > $h){
+        //缩略图宽为$w
+        $new_width = $max_width;
+        //计算缩略图高
+        $new_height = round($new_width * $h / $w);
+    }else{
+        //缩略图高为$h
+        $new_height = $max_height;
+        //计算缩略图宽
+        $new_width = round($new_height * $w / $h);
     }
+    //创建画布-缩略图
+    $thumb = imagecreatetruecolor($new_width,$new_height);
+    //原图像资源
+    $source = imagecreatefromjpeg($pic_info['tmp_name']);
+    //创建缩略图
+    imagecopyresized($thumb,$source,0,0,0,0,$new_width,$new_height,$w,$h);
+    //缩略图保存路径
+    $new_file = './img/'. $info['id'].'.jpg';
+    //保存缩略图到指定目录
+    imagejpeg($thumb,$new_file,100);
+    //header('Content-type:image/jpeg');
+
+    //$new_file = $info['id'].'.jpg';
+    // $filename = './img/'.$new_file;
+    // if(!move_uploaded_file($pic_info['tmp_name'],$filename)){
+    //     echo '头像上传失败！';
+    //     return false;
+    // }
 }
 require 'portrait_html.php';
 ?>
