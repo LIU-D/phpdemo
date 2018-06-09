@@ -82,9 +82,9 @@ function watermark($source,$water,$postion = 1,$path = ''){
 	  * @param int $wat_w 水印图片的宽
 	  * @param int $wat_h 水印图片的高
 	  */
-	imagecopy($src_img,$wat_img,$src_x,$src_y,0,0,$wat_w,$wat_h);
+	//imagecopy($src_img,$wat_img,$src_x,$src_y,0,0,$wat_w,$wat_h);
 	//生成水印方式二：使用imagecopymerge()函数设置半透明水印
-	//imagecopymerge($src_img,$wat_img,$src_x,$src_y,0,0,$wat_w,$wat_h,50);
+	imagecopymerge($src_img,$wat_img,$src_x,$src_y,0,0,$wat_w,$wat_h,50);
 	
 	//生成带水印的图片路径
 	$waterfile=$path.$waterPrefix.$source;
