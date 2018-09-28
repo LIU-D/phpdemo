@@ -2,7 +2,7 @@
 header('content-type:text/html;charset=utf-8');
 $info = array(
     "id" => 123,
-    "name" => "拉布拉多"
+    "name" => "李"
 );
 if(!empty($_FILES['pic'])){
     $pic_info = $_FILES['pic'];
